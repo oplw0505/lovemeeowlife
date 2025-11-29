@@ -1,1 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>愛喵森｜貓咪到府照護</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    body {
+      margin: 0;
+      background: #fff7fb;
+      color: #444;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .page {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 18px 16px 32px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .logo {
+      width: 70px;
+      height: 70px;
+      border-radius: 999px;
+      background: #ffe5f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(255,143,181,0.4);
+    }
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ff6f9f;
+      margin-bottom: 4px;
+    }
+    .slogan {
+      font-size: 13px;
+      color: #888;
+    }
+    .slogan strong {
+      color: #ff6f9f;
+    }
+    .tagline {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: #ffe3f0;
+      color: #b1547c;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 14px 14px 16px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+    }
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: #ff7aa5;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card h2 span.emoji {
+      font-size: 18px;
+    }
+    .primary-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      border-radius: 999px;
+      border: none;
+      padding: 11px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #ff8fb5, #ff6f9f);
+      box-shadow: 0 8px 18px rgba(255,143,181,0.6);
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .primary-btn span.emoji {
+      font-size: 18px;
+    }
+    .primary-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 4px 10px rgba(255,143,181,0.4);
+    }
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #b1547c;
+      margin-bottom: 4px;
+    }
+    .text {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .list {
+      font-size: 13px;
+      line-height: 1.5;
+      padding-left: 18px;
+      margin: 4px 0 0;
+    }
+    .list li {
+      margin: 2px 0;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .pill {
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 11px;
+      background: #ffe8f2;
+      color: #b1547c;
+    }
+    .process-step {
+      font-size: 13px;
+      margin: 2px 0;
+    }
+    .process-step strong {
+      color: #ff6f9f;
+    }
+    .fb-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      margin-top: 6px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: #eff4ff;
+      color: #3457b2;
+    }
+    .hint {
+      margin-top: 4px;
+      font-size: 11px;
+      color: #999;
+    }
+    footer {
+      margin-top: 12px;
+      font-size: 11px;
+      color: #aaa;
+      text-align: center;
+    }
+    @media (min-width: 520px) {
+      .page {
+        padding-top: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">
+        <!-- 若檔名是 logo.jpg 就把 src 改成 logo.jpg -->
+        <img src="logo.png" alt="愛喵森 Logo">
+      </div>
+      <div>
+        <div class="brand-title">愛喵森｜貓咪到府照護</div>
+        <div class="slogan">＼<strong>麻麻把拔！請放心出門</strong>／</div>
+        <div class="tagline">台北市北投區・貓咪到府陪伴與照護</div>
+      </div>
+    </header>
+
+    <main>
+      <!-- 貓咪聯絡簿按鈕 -->
+      <section class="card">
+        <h2><span class="emoji">💌</span> 貓咪聯絡簿</h2>
+        <p class="text">
+          每次到府照護時，點下方按鈕就能開啟「貓咪聯絡簿」，快速填寫當日照護內容，一鍵複製貼到 LINE 傳給家長。
+        </p>
+        <a href="diary.html">
+          <button class="primary-btn" type="button">
+            <span class="emoji">📔</span>
+            <span>打開貓咪聯絡簿</span>
+          </button>
+        </a>
+        <p class="hint">小撇步：可以把這個網站加到手機主畫面，變成像 App 一樣打開使用。</p>
+      </section>
+
+      <!-- 自我介紹 -->
+      <section class="card">
+        <h2><span class="emoji">😺</span> 關於貝貝姨姨</h2>
+        <div class="section-title">自我介紹</div>
+        <p class="text">
+          大家好我是貝貝姨姨！本職獸醫助理，因為太喜歡貓咪，踏上服務貓咪的旅程❤️<br>
+          獸醫助理八年以上，2019 年開始當到府貓保姆，持續進修中 ✧
+        </p>
+        <div class="section-title">服務風格</div>
+        <ul class="list">
+          <li>尊重貓咪個性，給牠安全距離與溫柔陪伴</li>
+          <li>依飼主與動物醫院的建議，協助日常照護與狀態回報</li>
+          <li>特別重視飲食、便尿與情緒變化</li>
+        </ul>
+        <div class="pill-row">
+          <span class="pill">現職獸醫助理</span>
+          <span class="pill">8+ 年照護經驗</span>
+          <span class="pill">2019 起到府貓保姆</span>
+        </div>
+      </section>
+
+      <!-- 服務內容 -->
+      <section class="card">
+        <h2><span class="emoji">🐾</span> 能為喵喵做些什麼？</h2>
+        <div class="section-title">到府照護項目</div>
+        <ul class="list">
+          <li>依照家長指示準備餐點、補充乾淨飲水</li>
+          <li>貓砂清理、環境與落砂整理</li>
+          <li>陪玩互動，幫助放電、降低分離焦慮</li>
+          <li>協助觀察食慾、精神、大便與尿尿狀況</li>
+          <li>離開前確認門窗、燈光與居家安全</li>
+        </ul>
+        <p class="hint">關於特殊醫療行為，會依照動物醫院與法規規範，事前與飼主充分溝通說明。</p>
+      </section>
+
+      <!-- 預約流程與聯絡 -->
+      <section class="card">
+        <h2><span class="emoji">📅</span> 預約流程與聯絡</h2>
+        <div class="section-title">北投區到府服務</div>
+        <p class="text">
+          目前主要服務區域為：<strong>台北市北投區</strong>。  
+          其他區域若有需求，也歡迎私訊粉專聊聊，再一起評估路程與時間安排。
+        </p>
+
+        <div class="section-title">預約流程</div>
+        <p class="process-step"><strong>①</strong> 先到 Facebook 粉專留言或私訊</p>
+        <p class="process-step"><strong>②</strong> 由貝貝姨姨提供表單，填寫喵喵基本資料與需求</p>
+        <p class="process-step"><strong>③</strong> 預約確認後，會再提供官方 LINE，建立專屬一對一照護聯絡管道</p>
+
+        <a class="fb-link" href="https://www.facebook.com/LoveMeeowLife" target="_blank" rel="noreferrer">
+          <span>📘 前往粉專預約</span>
+        </a>
+        <p class="hint">為了保護隱私與避免陌生人打擾，官方 LINE 僅在預約成立後提供。</p>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> 愛喵森｜貓咪到府照護 · 貝貝姨姨
+    </footer>
+  </div>
+
+  <script>
+    // 自動顯示年份
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
 
