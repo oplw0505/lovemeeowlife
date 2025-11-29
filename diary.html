@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>貓咪聯絡簿｜愛喵森</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    body {
+      margin: 0;
+      background: #fff7fb;
+      color: #444;
+    }
+    .app {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 16px 14px 32px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    header .icon {
+      font-size: 26px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 19px;
+      color: #ff7aa5;
+    }
+    header p {
+      margin: 2px 0 0;
+      font-size: 12px;
+      color: #888;
+    }
+    header a.back {
+      font-size: 11px;
+      color: #888;
+      text-decoration: none;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      margin-top: 4px;
+      border-radius: 999px;
+      background: #ffe3f0;
+      font-size: 11px;
+      color: #b1547c;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    section {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 14px 12px 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+    section h2 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #ff7aa5;
+    }
+    section h2 span.emoji {
+      font-size: 18px;
+    }
+    .group-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin: 10px 0 4px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .field-row {
+      display: flex;
+      gap: 8px;
+    }
+    .field {
+      margin-bottom: 8px;
+      width: 100%;
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 3px;
+      color: #666;
+    }
+    input, select, textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #ffd1e3;
+      padding: 8px 10px;
+      font-size: 13px;
+      outline: none;
+      background: #fff;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #ff7aa5;
+      box-shadow: 0 0 0 2px rgba(255,122,165,0.13);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pill {
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 12px;
+      border: 1px solid #ffd1e3;
+      background: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .pill input[type="checkbox"] {
+      accent-color: #ff7aa5;
+      width: 13px;
+      height: 13px;
+    }
+    .status-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .status-item {
+      border-radius: 12px;
+      padding: 6px 8px 7px;
+      background: #fff7fc;
+      border: 1px solid #ffe0f0;
+    }
+    .status-item label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+      font-size: 12px;
+    }
+    .status-item label .emoji {
+      font-size: 15px;
+    }
+    .status-item select {
+      font-size: 12px;
+      padding: 5px 8px;
+    }
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .btn {
+      flex: 1;
+      border-radius: 999px;
+      border: none;
+      padding: 9px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .btn-primary {
+      background: #ff8fb5;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(255,143,181,0.4);
+    }
+    .btn-secondary {
+      background: #fff;
+      color: #ff8fb5;
+      border: 1px solid #ffd1e3;
+    }
+    .btn:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+    .preview-card {
+      border-radius: 16px;
+      background: linear-gradient(135deg, #fff7fb, #ffeef9);
+      padding: 10px 10px 12px;
+      border: 1px dashed #ffc5dd;
+      font-size: 13px;
+      line-height: 1.5;
+      position: relative;
+      overflow: hidden;
+    }
+    .preview-card::before {
+      content: "for pawrent 💌";
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      font-size: 10px;
+      color: #d07a9e;
+      opacity: 0.7;
+    }
+    .preview-header {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .preview-header-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ff6c9e;
+    }
+    .preview-header-day {
+      font-size: 11px;
+      color: #888;
+    }
+    .preview-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .tag {
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: #ffe3f0;
+      color: #b1547c;
+    }
+    .preview-section-title {
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #b1547c;
+    }
+    .preview-list {
+      margin: 2px 0 0 0;
+      padding-left: 18px;
+    }
+    .preview-list li {
+      margin: 1px 0;
+    }
+    .hint {
+      margin-top: 4px;
+      font-size: 11px;
+      color: #999;
+    }
+    .toast {
+      position: fixed;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #444;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+      z-index: 999;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
+    }
+    @media (min-width: 520px) {
+      .app {
+        padding-top: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="icon">📔</div>
+    <div>
+      <h1>貓咪聯絡簿</h1>
+      <p>到府當下快速填寫，一鍵複製傳給飼主 💌</p>
+      <span class="chip">愛喵森｜貝貝姨姨</span><br>
+      <a class="back" href="index.html">← 回首頁</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- 填寫區 -->
+    <section>
+      <h2><span class="emoji">📋</span> 今日填寫</h2>
+
+      <div class="group-title">基本資料</div>
+      <form id="logForm">
+        <div class="field-row">
+          <div class="field">
+            <label>日期</label>
+            <input type="date" id="date">
+          </div>
+          <div class="field">
+            <label>到府第幾天（選填）</label>
+            <input type="number" id="dayCount" min="1" placeholder="例如：1">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>喵大名</label>
+            <input type="text" id="catName" placeholder="例如：豆豆 / 小魚">
+          </div>
+          <div class="field">
+            <label>年紀</label>
+            <input type="text" id="catAge" placeholder="例如：3歲">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>性別</label>
+            <select id="catGender">
+              <option value="">未選擇</option>
+              <option value="小王子">公（男生）</option>
+              <option value="小公主">母（女生）</option>
+              <option value="小天使">不確定</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>結紮</label>
+            <select id="neuter">
+              <option value="">未選擇</option>
+              <option value="已結紮">已結紮</option>
+              <option value="未結紮">未結紮</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>疫苗 / 驅蟲（選填）</label>
+          <input type="text" id="vaccine" placeholder="例如：已完成基礎疫苗、每3個月驅蟲一次">
+        </div>
+
+        <div class="field">
+          <label>病史 / 食物過敏（選填）</label>
+          <textarea id="history" placeholder="例如：腎臟稍弱、對雞肉過敏"></textarea>
+        </div>
+
+        <div class="field">
+          <label>其他特殊備註（選填）</label>
+          <textarea id="specialNote" placeholder="例如：怕大聲音、怕吹風機、只吃碗右邊的罐罐"></textarea>
+        </div>
+
+        <div class="group-title">今天完成的事項</div>
+        <div class="pill-row">
+          <label class="pill"><input type="checkbox" value="已依照家長說明餵食餐點" class="task">🍽️ 食物</label>
+          <label class="pill"><input type="checkbox" value="已補充乾淨的飲用水" class="task">💧 水</label>
+          <label class="pill"><input type="checkbox" value="貓砂已清理、環境維持乾淨" class="task">🧹 貓砂</label>
+          <label class="pill"><input type="checkbox" value="有陪玩、互動，幫助放電與減壓" class="task">🎮 陪玩</label>
+          <label class="pill"><input type="checkbox" value="已將落砂清理乾淨" class="task">🧺 落砂清潔</label>
+          <label class="pill"><input type="checkbox" value="家電依照家長指示處理" class="task">🔌 家電</label>
+          <label class="pill"><input type="checkbox" value="燈光依照家長需求調整" class="task">💡 燈光</label>
+          <label class="pill"><input type="checkbox" value="出入門窗及房門皆有確認" class="task">🚪 門 / 房</label>
+          <label class="pill"><input type="checkbox" value="窗戶及紗窗安全已確認" class="task">🪟 窗戶</label>
+          <label class="pill"><input type="checkbox" value="離開前再次確認門鎖安全" class="task">🔐 鎖門</label>
+          <label class="pill"><input type="checkbox" value="外出籠擺放位置及狀態已確認" class="task">🧺 外出籠</label>
+        </div>
+
+        <div class="group-title">今日の喵喵</div>
+        <div class="status-row">
+          <div class="status-item">
+            <label>食慾 <span class="emoji">🍽️</span></label>
+            <select id="eat">
+              <option value="">未選擇</option>
+              <option value="食慾很好，願意主動進食">😋 食慾很好</option>
+              <option value="食慾普通，吃得差不多">🙂 食慾普通</option>
+              <option value="食慾稍微偏差，需要再觀察">😐 食慾稍差</option>
+              <option value="幾乎不太想吃，需要特別留意">😟 幾乎不吃</option>
+            </select>
+          </div>
+          <div class="status-item">
+            <label>精神 <span class="emoji">😺</span></label>
+            <select id="spirit">
+              <option value="">未選擇</option>
+              <option value="精神很好，願意互動、玩耍">✨ 精神很好</option>
+              <option value="精神普通，習慣的節奏">🙂 精神普通</option>
+              <option value="有點累、比較安靜，需要再觀察">😴 稍微沒精神</option>
+              <option value="明顯萎靡或躲藏，建議多注意">⚠️ 精神不佳</option>
+            </select>
+          </div>
+          <div class="status-item">
+            <label>大便 <span class="emoji">💩</span></label>
+            <select id="poop">
+              <option value="">未選擇</option>
+              <option value="今日有正常排便，形狀與顏色看起來都不錯">✅ 正常</option>
+              <option value="今日尚未看到排便，會持續幫忙留意">🕒 尚未看到</option>
+              <option value="便便偏軟或稍硬，會再幫忙觀察">⚠️ 稍有變化</option>
+              <option value="便便明顯異常（拉肚子 / 便血等），建議多注意狀況">🚨 明顯異常</option>
+            </select>
+          </div>
+          <div class="status-item">
+            <label>尿尿 <span class="emoji">💧</span></label>
+            <select id="pee">
+              <option value="">未選擇</option>
+              <option value="今日有正常尿量，顏色也在合理範圍">✅ 正常</option>
+              <option value="今日尚未看到尿尿，會繼續幫忙留意">🕒 尚未看到</option>
+              <option value="尿量或顏色稍有變化，會再觀察狀況">⚠️ 稍有變化</option>
+              <option value="尿量明顯變少 / 頻尿 / 血尿等，建議多留意">🚨 明顯異常</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>今天有沒有特別的事情、異常狀況？（若無可留空）</label>
+          <textarea id="abnormal" placeholder="例如：有一點軟便、打噴嚏 2 次、對陌生聲音比較緊張"></textarea>
+        </div>
+
+        <div class="field">
+          <label>保姆想跟爸媽說的話（選填）</label>
+          <textarea id="sitterNote" placeholder="例如：今天很乖，有主動來撒嬌，已幫忙多陪玩一會兒～"></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn-secondary" id="resetBtn">清空今日內容</button>
+          <button type="submit" class="btn btn-primary">更新預覽 💌</button>
+        </div>
+      </form>
+      <div class="hint">先按「更新預覽」，再按「複製文字」，貼到 LINE 給家長即可。</div>
+    </section>
+
+    <!-- 預覽給家長看的畫面 -->
+    <section>
+      <h2><span class="emoji">💌</span> 給飼主看的文字預覽</h2>
+      <article class="preview-card" id="previewCard">
+        <div class="preview-header">
+          <div class="preview-header-name" id="previewName">喵喵</div>
+          <div class="preview-header-day" id="previewDayText">今日到府日誌</div>
+        </div>
+        <div class="preview-tags" id="previewTags">
+          <span class="tag">小貓日誌</span>
+        </div>
+        <div id="previewBody">
+          今天保姆到家裡陪伴喵喵，已依照家長的說明完成照顧項目，詳細狀況請見下方說明🐾
+        </div>
+      </article>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-primary" id="copyBtn">複製這段文字 ✂️</button>
+      </div>
+      <div class="hint">貼到 LINE / IG / FB 訊息，就像是專屬「到府回報卡」。</div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast">已複製到剪貼簿！</div>
+
+<script>
+  const form = document.getElementById('logForm');
+  const previewName = document.getElementById('previewName');
+  const previewDayText = document.getElementById('previewDayText');
+  const previewTags = document.getElementById('previewTags');
+  const previewBody = document.getElementById('previewBody');
+  const copyBtn = document.getElementById('copyBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const toast = document.getElementById('toast');
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 1800);
+  }
+
+  function getValue(id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  }
+
+  function buildPreview() {
+    const date = getValue('date');
+    const dayCount = getValue('dayCount');
+    const catName = getValue('catName') || '喵喵';
+    const catAge = getValue('catAge');
+    const catGender = getValue('catGender');
+    const neuter = getValue('neuter');
+    const vaccine = getValue('vaccine');
+    const history = getValue('history');
+    const specialNote = getValue('specialNote');
+    const abnormal = getValue('abnormal');
+    const sitterNote = getValue('sitterNote');
+
+    const eat = getValue('eat');
+    const spirit = getValue('spirit');
+    const poop = getValue('poop');
+    const pee = getValue('pee');
+
+    const tasks = Array.from(document.querySelectorAll('.task:checked')).map(t => t.value);
+
+    // Header
+    previewName.textContent = catName;
+    let dayText = '今日到府日誌';
+    if (date) {
+      dayText = date.replace(/-/g, '/') + ' 到府日誌';
+    }
+    if (dayCount) {
+      dayText += `｜第 ${dayCount} 天`;
+    }
+    previewDayText.textContent = dayText;
+
+    // Tags
+    previewTags.innerHTML = '';
+    const tags = [];
+    if (catAge) tags.push(catAge);
+    if (catGender) tags.push(catGender);
+    if (neuter) tags.push(neuter);
+    if (!tags.length) tags.push('小貓日誌');
+
+    tags.forEach(t => {
+      const span = document.createElement('span');
+      span.className = 'tag';
+      span.textContent = t;
+      previewTags.appendChild(span);
+    });
+
+    // Body text
+    let lines = [];
+
+    // 開頭
+    lines.push(`今天保姆有到家裡陪伴「${catName}」，目前整體狀況已幫您簡單整理如下：`);
+
+    // 基本資料（只在有填時出現）
+    const basicInfo = [];
+    if (catAge) basicInfo.push(`年紀：${catAge}`);
+    if (vaccine) basicInfo.push(`疫苗 / 驅蟲：${vaccine}`);
+    if (history) basicInfo.push(`病史 / 過敏：${history}`);
+    if (specialNote) basicInfo.push(`特別備註：${specialNote}`);
+
+    if (basicInfo.length) {
+      lines.push('');
+      lines.push('📌 基本資訊小整理：');
+      basicInfo.forEach(item => lines.push(`・${item}`));
+    }
+
+    // 今日完成事項
+    if (tasks.length) {
+      lines.push('');
+      lines.push('✅ 今天已完成的照顧項目：');
+      tasks.forEach(t => lines.push(`・${t}`));
+    }
+
+    // 今日狀態
+    const statusLines = [];
+    if (eat) statusLines.push(`🍽️ 食慾：${eat}`);
+    if (spirit) statusLines.push(`😺 精神：${spirit}`);
+    if (poop) statusLines.push(`💩 大便：${poop}`);
+    if (pee) statusLines.push(`💧 尿尿：${pee}`);
+
+    if (statusLines.length) {
+      lines.push('');
+      lines.push('🐾 今日の喵喵：');
+      statusLines.forEach(item => lines.push(item));
+    }
+
+    // 異常狀況
+    if (abnormal) {
+      lines.push('');
+      lines.push('⚠️ 特別留意的小地方：');
+      lines.push(abnormal);
+    }
+
+    // 保姆留言
+    if (sitterNote) {
+      lines.push('');
+      lines.push('💌 想跟爸媽說：');
+      lines.push(sitterNote);
+    }
+
+    // 結尾
+    lines.push('');
+    lines.push('有任何想調整照顧方式的地方，都可以隨時跟我說～');
+
+    const html = lines
+      .map(line => line ? line.replace(/\n/g, '<br>') : '<br>')
+      .join('<br>');
+
+    previewBody.innerHTML = html;
+
+    return lines.join('\n');
+  }
+
+  form.addEventListener('input', buildPreview);
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    buildPreview();
+    showToast('已更新預覽💌');
+    document.getElementById('previewCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  copyBtn.addEventListener('click', function () {
+    const text = buildPreview();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('已複製到剪貼簿，可以貼到 LINE 囉！');
+      }).catch(() => {
+        showToast('複製失敗，可以改用長按選取文字複製。');
+      });
+    } else {
+      showToast('裝置不支援快速複製，請改用長按選取文字。');
+    }
+  });
+
+  resetBtn.addEventListener('click', function () {
+    form.reset();
+    buildPreview();
+    showToast('已清空今日內容');
+  });
+
+  // 初始化預覽
+  buildPreview();
+</script>
+</body>
+</html>
